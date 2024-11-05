@@ -11,7 +11,7 @@ CHAT_ID = "-1001557949594"
 bot = telegram.Bot(token=TOKEN)
 
 async def send_message():
-  message = 'Сообщение, которое нужно отправить'
+  message = 'Обновление Weekly Update v2'
   await bot.send_message(chat_id=CHAT_ID, text=message)
 
 @crontab('0 12 * * 2,4')
