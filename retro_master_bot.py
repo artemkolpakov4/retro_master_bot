@@ -13,9 +13,12 @@ async def send_message():
   message = 'Сообщение, которое нужно отправить'
   await bot.send_message(chat_id=CHAT_ID, text=message)
 
+@crontab('0 12 * * 2,4')
+async def scheduled_send_message():
+    await send_message()
+
 async def main():
     while True:
-        await send_message()
-        await asyncio.sleep(5)
+        await asyncio.sleep(1)
 
 asyncio.run(main())
