@@ -19,9 +19,9 @@ async def send_message_weekly_update_2():
 
 cron_job = crontab('1 * * * *')(send_message_weekly_update_2)
 
-async def main():
-    while True:
-        await asyncio.sleep(1)
-
 if __name__ == '__main__':
-    asyncio.run(main())
+    loop = asyncio.get_event_loop()
+    try:
+        loop.run_forever()
+    except KeyboardInterrupt:
+        pass
