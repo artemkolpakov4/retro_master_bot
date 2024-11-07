@@ -14,7 +14,7 @@ async def send_message():
   message = 'Обновление Weekly Update v2'
   await bot.send_message(chat_id=CHAT_ID, text=message)
 
-@crontab('0 12 * * 2,4')
+@crontab('1 * * * *')
 async def scheduled_send_message():
     await send_message()
 
