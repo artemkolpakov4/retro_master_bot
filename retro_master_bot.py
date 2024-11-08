@@ -30,7 +30,7 @@ async def send_message_weekly_update_2(context: ContextTypes.DEFAULT_TYPE):
 async def main():
     application = ApplicationBuilder().token(TOKEN).build()
     scheduler = AsyncIOScheduler()
-    scheduler.add_job(send_message_weekly_update_2, "interval", seconds=10, args=[application])
+    scheduler.add_job(send_message_weekly_update_2, "cron", day_of_week="tue,thu", hour=12, minute=0, args=[application])
     scheduler.start()
     await application.run_polling()
 
