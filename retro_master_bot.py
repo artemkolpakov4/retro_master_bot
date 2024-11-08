@@ -4,8 +4,10 @@ from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 import asyncio
+import nest_asyncio
 
-# Вставьте сюда ваш токен
+nest_asyncio.apply()
+
 TOKEN = "5931866701:AAH_LpY3o5KMrWJhckoVTlfP2IwIA5ESkFU"
 CHAT_ID = "-1001557949594"
 
