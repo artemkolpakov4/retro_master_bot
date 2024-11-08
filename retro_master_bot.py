@@ -27,7 +27,7 @@ async def main():
         first=0
     )
 
-    await application.run_polling()
+    await application.run_polling(close_loop=False)
 
 if __name__ == '__main__':
     try:
