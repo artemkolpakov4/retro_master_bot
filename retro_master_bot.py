@@ -1,27 +1,37 @@
 # bot.py
 
-import os
-import telegram
 import asyncio
-import time
-from aiocron import crontab
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import ApplicationBuilder, ContextTypes, JobQueue
 
 TOKEN = "5931866701:AAH_LpY3o5KMrWJhckoVTlfP2IwIA5ESkFU"
 CHAT_ID = "-1001557949594"
-bot = telegram.Bot(token=TOKEN)
 
-async def send_message_weekly_update_2():
-  message = 'Обновление Weekly Update v2'
-  button = InlineKeyboardButton(text="YQL", url="https://yql.yandex-team.ru/Operations/672c8829d930343670edad06")
-  keyboard = InlineKeyboardMarkup([[button]])
-  await bot.send_message(chat_id=CHAT_ID, text=message, reply_markup=keyboard)
+async def send_message_weekly_update_2(context: ContextTypes.DEFAULT_TYPE):
+    message = 'Обновление Weekly Update v2'
+    button = InlineKeyboardButton(
+        text="YQL", 
+        url="https://yql.yandex-team.ru/Operations/672c8829d930343670edad06"
+    )
+    keyboard = InlineKeyboardMarkup([[button]])
+    await context.bot.send_message(
+        chat_id=CHAT_ID, 
+        text=message, 
+        reply_markup=keyboard
+    )
 
-cron_job = crontab('* * * * *')(send_message_weekly_update_2)
+async def main():
+    application = ApplicationBuilder().token(TOKEN).build()
+
+    job_queue = application.job_queue
+    # Запланировать задачу send_message_weekly_update_2 каждые 60 секунд
+    job_queue.run_repeating(
+        send_message_weekly_update_2, 
+        interval=60, 
+        first=0
+    )
+
+    await application.run_polling()
 
 if __name__ == '__main__':
-    loop = asyncio.get_event_loop()
-    try:
-        loop.run_forever()
-    except:
-        pass
+    asyncio.run(main())
