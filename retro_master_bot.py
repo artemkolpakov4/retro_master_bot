@@ -33,15 +33,4 @@ async def main():
     await application.run_polling()
 
 if __name__ == '__main__':
-    try:
-        loop = asyncio.get_running_loop()
-    except RuntimeError:
-        loop = None
-    if loop and loop.is_running():
-        print('Async event loop already running. Adding coroutine to the event loop.')
-        tsk = loop.create_task(main())
-        tsk.add_done_callback(
-            lambda t: print(f'Task done with result={t.result()}  << return val of main()'))
-    else:
-        print('Starting new event loop')
-        result = asyncio.run(main())
+    result = asyncio.run(main())
