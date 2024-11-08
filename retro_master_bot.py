@@ -1,8 +1,6 @@
-# bot.py
-
 import asyncio
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import ApplicationBuilder, ContextTypes, JobQueue
+from telegram.ext import ApplicationBuilder, ContextTypes
 
 TOKEN = "5931866701:AAH_LpY3o5KMrWJhckoVTlfP2IwIA5ESkFU"
 CHAT_ID = "-1001557949594"
@@ -22,7 +20,6 @@ async def send_message_weekly_update_2(context: ContextTypes.DEFAULT_TYPE):
 
 async def main():
     application = ApplicationBuilder().token(TOKEN).build()
-
     job_queue = application.job_queue
     job_queue.run_repeating(
         send_message_weekly_update_2, 
@@ -33,4 +30,11 @@ async def main():
     await application.run_polling()
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    try:
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(main())
+    except RuntimeError as e:
+        if 'This event loop is already running' in str(e):
+            asyncio.ensure_future(main())
+        else:
+            raise e
