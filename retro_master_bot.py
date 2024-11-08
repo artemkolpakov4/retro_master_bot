@@ -24,7 +24,6 @@ async def main():
     application = ApplicationBuilder().token(TOKEN).build()
 
     job_queue = application.job_queue
-    # Запланировать задачу send_message_weekly_update_2 каждые 60 секунд
     job_queue.run_repeating(
         send_message_weekly_update_2, 
         interval=60, 
