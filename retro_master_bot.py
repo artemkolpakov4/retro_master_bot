@@ -17,7 +17,7 @@ async def send_message_weekly_update_2():
   keyboard = InlineKeyboardMarkup([[button]])
   await bot.send_message(chat_id=CHAT_ID, text=message, reply_markup=keyboard)
 
-cron_job = crontab('1 * * * *')(send_message_weekly_update_2)
+cron_job = crontab('* * * * *')(send_message_weekly_update_2)
 
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
